@@ -1,3 +1,2 @@
 # bookygo-backend
 Backend
-test
