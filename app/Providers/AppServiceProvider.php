@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Notifications\Messages\MailMessage;
+use Livewire\Livewire;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +26,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if (class_exists(\Modules\Clients\Livewire\Index::class)) {
+            Livewire::component('clients::index', \Modules\Clients\Livewire\Index::class);
+        }
         $this->configureDefaults();
     }
 
@@ -43,5 +49,19 @@ class AppServiceProvider extends ServiceProvider
                 ->uncompromised()
             : null
         );
+
+        //Add By Mac
+        //Customize the email verification notification
+        VerifyEmail::toMailUsing(function ($notifiable, $url) {
+            $mailMessage = new MailMessage;
+            // Chiama il metodo buildMailMessage originale
+            $reflection = new \ReflectionClass(VerifyEmail::class);
+            $method = $reflection->getMethod('buildMailMessage');
+            $method->setAccessible(true);
+            $notification = new VerifyEmail;
+            $mailMessage = $method->invoke($notification, $url);
+            // Modifica solo il subject
+            return $mailMessage->subject(config('app.name') . ' | Verify Email Address');
+        });
     }
 }

@@ -15,8 +15,13 @@
                     <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
+                    <flux:sidebar.item icon="users" :href="route('clients.index')" :current="request()->routeIs('clients.index')" wire:navigate>
+                        {{ __('Clients') }}
+                    </flux:sidebar.item>
+                    
                 </flux:sidebar.group>
             </flux:sidebar.nav>
+            
 
             <flux:spacer />
 
@@ -91,5 +96,6 @@
         {{ $slot }}
 
         @fluxScripts
+        @livewireScripts
     </body>
 </html>

@@ -7,6 +7,8 @@ use App\Concerns\ProfileValidationRules;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
+//Add By Mac
+use App\Models\UserType;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -29,5 +31,7 @@ class CreateNewUser implements CreatesNewUsers
             'email' => $input['email'],
             'password' => $input['password'],
         ]);
+
+        //Add By Mac
     }
 }
