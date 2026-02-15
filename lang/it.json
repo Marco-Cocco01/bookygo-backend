@@ -1,5 +1,18 @@
 {
-    "Clients": "Gestione Clienti",
+    "Clients": "Clienti",
+    "Company": "Aziende",
+    "Products": "Prodotti",
+    "Calendar": "Calendario",
     "Dashboard": "Dashboard",
-    "Platform": "Piattaforma"
+    "Platform": "Piattaforma",
+    "Settings": "Impostazioni",
+    "Modules": "Moduli",
+    "Permissions": "Permessi",
+    "Roles": "Ruoli",
+    "Orders": "Ordini",
+    "Wallet": "Portafoglio",
+    "Transactions": "Transazioni",
+    "Anagraphic": "Anagrafica",
+    "Categories": "Categorie",
+    "Subcategories": "Sottocategorie"
 }

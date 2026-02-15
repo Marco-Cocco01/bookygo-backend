@@ -1,0 +1,7 @@
+{
+    "Clients": true,
+    "Rules": true,
+    "Modules": true,
+    "Permissions": true,
+    "Company": true
+}

@@ -12,17 +12,43 @@
 
             <flux:sidebar.nav>
                 <flux:sidebar.group :heading="__('Platform')" class="grid">
+                    <!-- Homepage -->
                     <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
-                    <flux:sidebar.item icon="users" :href="route('clients.index')" :current="request()->routeIs('clients.index')" wire:navigate>
-                        {{ __('Clients') }}
-                    </flux:sidebar.item>
+                    <!-- Impostazioni -->
+                    <flux:sidebar.group icon="cog-6-tooth"  heading="{{ __('Settings') }}" class="grid">
+                        <flux:sidebar.item icon="cog" :href="route('rules.index')" :current="request()->routeIs('rules.index')">{{ __('Rules') }}</flux:sidebar.item>
+                        <flux:sidebar.item icon="adjustments-horizontal" href="#">{{ __('Modules') }}</flux:sidebar.item>
+                        <flux:sidebar.item icon="lock-closed" href="#">{{ __('Permissions') }}</flux:sidebar.item>
+                    </flux:sidebar.group>
+
+                    <!-- Clienti -->
+                    <flux:sidebar.group icon="document-text"  heading="{{ __('Anagraphic')}}" class="grid">
+                        <flux:sidebar.item icon="user-group" :href="route('clients.index')" :current="request()->routeIs('clients.index')">{{ __('Clients') }}</flux:sidebar.item>
+                        <flux:sidebar.item icon="building-office" href="#">{{ __('Company') }}</flux:sidebar.item>
+                    </flux:sidebar.group>
+
+                    <!-- Ordini -->
+                    <flux:sidebar.group icon="document-text"  heading="{{ __('Orders') }}" class="grid">
+                        <flux:sidebar.item icon="clipboard" href="#">{{ __('Orders') }}</flux:sidebar.item>
+                        <flux:sidebar.item icon="wallet" href="#">{{ __('Wallet') }}</flux:sidebar.item>
+                        <flux:sidebar.item icon="building-office" href="#">{{ __('Transactions') }}</flux:sidebar.item>
+                    </flux:sidebar.group>
+
+                    <!-- Prodotti -->
+                    <flux:sidebar.group icon="shopping-cart"  heading="{{ __('Products') }}" class="grid">
+                        <flux:sidebar.item icon="clipboard" href="#">{{ __('Anagraphic') }}</flux:sidebar.item>
+                        <flux:sidebar.item icon="wallet" href="#">{{ __('Categories') }}</flux:sidebar.item>
+                        <flux:sidebar.item icon="folder" href="#">{{ __('Subcategories') }}</flux:sidebar.item>
+                    </flux:sidebar.group>
+
+                    <!-- Calendario -->
+                    <flux:sidebar.item icon="calendar" href="#">{{ __('Calendar') }}</flux:sidebar.item>
                     
                 </flux:sidebar.group>
             </flux:sidebar.nav>
             
-
             <flux:spacer />
 
             <flux:sidebar.nav>

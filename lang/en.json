@@ -1,5 +1,18 @@
 {
-    "Clients": "Clients Management",
+    "Clients": "Clients",
+    "Company": "Company",
+    "Products": "Products",
+    "Calendar": "Calendar",
     "Dashboard": "Dashboard",
-    "Platform": "Platform"
+    "Platform": "Platform",
+    "Settings": "Settings",
+    "Modules": "Modules",
+    "Permissions": "Permissions",
+    "Roles": "Roles",
+    "Orders": "Orders",
+    "Wallet": "Wallet",
+    "Transactions": "Transactions",
+    "Anagraphic": "Anagraphic",
+    "Categories": "Categories",
+    "Subcategories": "Subcategories"
 }
