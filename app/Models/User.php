@@ -8,6 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -50,6 +53,11 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return true; // oppure: return $this->hasRole('admin');
+    }
+
     /**
      * Get the user's initials
      */
@@ -60,5 +68,28 @@ class User extends Authenticatable implements MustVerifyEmail
             ->take(2)
             ->map(fn ($word) => Str::substr($word, 0, 1))
             ->implode('');
+    }
+
+    // Relazione con types tramite type_user
+    public function types(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            types::class,
+            'type_user',  // tabella pivot
+            'id_user',    // FK verso users
+            'id_type'     // FK verso types
+        );
+    }
+
+    // Controlla se l'utente ha un determinato tipo
+    public function hasType(string $typeName): bool
+    {
+        return $this->types()->where('name', $typeName)->exists();
+    }
+
+    // Diritti dell'utente in users_rights
+    public function rights(): HasMany
+    {
+        return $this->hasMany(UserRight::class, 'id_user');
     }
 }
