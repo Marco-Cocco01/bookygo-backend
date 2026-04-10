@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Rules\Http\Controllers\RulesController;
+use Modules\Rules\app\Http\Controllers\RulesController;
 
 Route::middleware(['auth', 'verified'])->group(function () {
     //Route::resource('clients', ClientsController::class)->names('clients');

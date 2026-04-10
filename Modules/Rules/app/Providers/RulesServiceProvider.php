@@ -5,8 +5,10 @@ namespace Modules\Rules\app\Providers;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Nwidart\Modules\Traits\PathNamespace;
+use Livewire\Livewire;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use Modules\Rules\App\Livewire\RulesList;
 
 class RulesServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,7 @@ class RulesServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
+        Livewire::component('rules-list', RulesList::class);
     }
 
     /**

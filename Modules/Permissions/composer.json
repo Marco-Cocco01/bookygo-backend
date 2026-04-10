@@ -17,9 +17,9 @@
     },
     "autoload": {
         "psr-4": {
-            "Modules\\Permissions\\": "app/",
-            "Modules\\Permissions\\Database\\Factories\\": "database/factories/",
-            "Modules\\Permissions\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\Permissions\\app\\": "app/",
+            "Modules\\Permissions\\database\\factories\\": "database/factories/",
+            "Modules\\Permissions\\database\\seeders\\": "database/seeders/"
         }
     },
     "autoload-dev": {

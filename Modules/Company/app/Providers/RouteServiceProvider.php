@@ -17,17 +17,21 @@ class RouteServiceProvider extends ServiceProvider
     public function boot(): void
     {
         parent::boot();
+
+        $this->mapApiRoutes();
+        $this->mapWebRoutes();
     }
 
     /**
      * Define the routes for the application.
      */
+    /*
     public function map(): void
     {
         $this->mapApiRoutes();
         $this->mapWebRoutes();
     }
-
+*/
     /**
      * Define the "web" routes for the application.
      *

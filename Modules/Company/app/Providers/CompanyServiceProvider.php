@@ -5,8 +5,11 @@ namespace Modules\Company\app\Providers;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Nwidart\Modules\Traits\PathNamespace;
+use Livewire\Livewire;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use Modules\Company\app\Livewire\CompanyList;
+use Modules\Company\app\Livewire\AddCompany;
 
 class CompanyServiceProvider extends ServiceProvider
 {
@@ -27,6 +30,9 @@ class CompanyServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
+        Livewire::component('company-list', CompanyList::class);
+        Livewire::component('add-company', AddCompany::class);
+        
     }
 
     /**

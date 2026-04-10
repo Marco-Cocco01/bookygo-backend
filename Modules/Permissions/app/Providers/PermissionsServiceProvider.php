@@ -5,6 +5,8 @@ namespace Modules\Permissions\app\Providers;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Nwidart\Modules\Traits\PathNamespace;
+use Livewire\Livewire;
+use Modules\Permissions\app\Livewire\PermissionList;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
@@ -27,6 +29,8 @@ class PermissionsServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
+        Livewire::component('permissions-list', PermissionList::class);
+
     }
 
     /**

@@ -5,8 +5,11 @@ namespace Modules\Modules\app\Providers;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Nwidart\Modules\Traits\PathNamespace;
+use Livewire\Livewire;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use Modules\Modules\app\Livewire\ModulesList;
+
 
 class ModulesServiceProvider extends ServiceProvider
 {
@@ -27,6 +30,9 @@ class ModulesServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
+        //Livewire::addNamespace('modules', base_path('Modules/Modules/App/Livewire'));
+        Livewire::component('modules-list', ModulesList::class);
+        //Livewire::component('modules::modules-list', ModulesList::class);
     }
 
     /**

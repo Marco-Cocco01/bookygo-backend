@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserTypes extends Model
 {
+    
     protected $fillable = [
         'title',
         'description',
