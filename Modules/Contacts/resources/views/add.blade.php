@@ -17,13 +17,13 @@
                     <div class="col-xl-12 col-md-12">
                         <div class="card custom-card">
                             <div class="card-header justify-content-between">
-                                <h4 class="card-title">Gestione Azienda</h4>
+                                <h4 class="card-title">Gestione Contatti</h4>
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <p class="mb-3">In questa sezione è possibile gestire i contatti, i quali possono essere delegati alla/e azienda/e.</p>
+                                    <p class="mb-3">&nbsp;</p>
                                 </div>
-                                <livewire:contacts-list />
+                                    <livewire:add-contact />
                                 <div class="card-footer">
                                     &nbsp;
                                 </div>

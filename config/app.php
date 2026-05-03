@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'BookyGo'),
+    'name' => env('APP_NAME', 'BookyGo | Admin Panel'),
 
     /*
     |--------------------------------------------------------------------------

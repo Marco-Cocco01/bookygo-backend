@@ -9,6 +9,7 @@ use Livewire\Livewire;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Modules\Contacts\app\Livewire\ContactsList;
+use Modules\Contacts\app\Livewire\AddContact;
 
 
 class ContactsServiceProvider extends ServiceProvider
@@ -31,6 +32,7 @@ class ContactsServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
         Livewire::component('contacts-list', ContactsList::class);
+        Livewire::component('add-contact', AddContact::class);
 
          
     }

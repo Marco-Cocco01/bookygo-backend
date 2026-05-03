@@ -32,6 +32,7 @@ return [
     'component_namespaces' => [
         'layouts' => resource_path('views/layouts'),
         'pages' => resource_path('views/pages'),
+        'modules' => 'Modules\\Modules\\App\\Livewire',
     ],
 
     /*

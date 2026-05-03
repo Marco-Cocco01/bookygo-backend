@@ -15,14 +15,13 @@
             <div class="card custom-card">
                 <div class="card-header">
                     <div class="card-title">
-                        <a class="btn btn-primary" href="{{route('company.add')}}">Aggiungi Nuovo</a> 
+                        <a class="btn btn-primary" href="{{route('contact.add')}}">Aggiungi Nuovo</a> 
                     </div>
                 </div>
                 <div class="card-body">
                     <table id="responsiveDataTable" class="table table-bordered text-wrap w-100">
                         <thead>
                             <tr>
-                               
                                 <th scope="col">Nominativo</th>    
                                 <th scope="col">Telefono</th>
                                 <th scope="col">E-mail</th>

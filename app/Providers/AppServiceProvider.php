@@ -9,7 +9,15 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Client;
+use App\Policies\ClientsPolicy;
+use App\Services\MenuServices;
 use Livewire\Livewire;
+
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,6 +37,13 @@ class AppServiceProvider extends ServiceProvider
         if (class_exists(\Modules\Clients\Livewire\Index::class)) {
             Livewire::component('clients::index', \Modules\Clients\Livewire\Index::class);
         }
+
+        View::composer('*', function ($view) {
+            if (Auth::check()) {
+                $view->with('menuModules', app(MenuServices::class)->getMenuForUser());
+            }
+        });
+        
         $this->configureDefaults();
     }
 

@@ -13,6 +13,5 @@ class Contacts extends Model
         'id_owner',
         'email',
         'phone',
-        'message',
     ];
 }
