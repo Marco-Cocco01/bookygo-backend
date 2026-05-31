@@ -54,7 +54,7 @@
                                 </td>
                             </tr>
                             @empty
-                                <tr class="text-center">Nessun azienda trovata</tr>
+                                <td colspan="11" class="text-center">Nessun azienda trovata</td>
                             @endforelse
                         </tbody>
                     </table>

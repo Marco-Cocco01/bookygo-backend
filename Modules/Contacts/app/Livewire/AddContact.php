@@ -19,16 +19,14 @@ class AddContact extends Component
     public $is_active;
     public $is_edit = false;
 
-
-
     public function mount($id = null){
-        $this->id_user = auth()->id();
+        $this->id_parent = auth()->id();
         
         //Carico i dati se è presente un id, altrimenti rimangono vuoti per l'inserimento
         if($id){
 
             $contact = Contacts::findOrFail($id);
-            $this->id_parent = Auth()->id();
+            $this->id_parent =auth()->id();
             $this->name = $contact->name;
             $this->email = $contact->email;
             $this->phone = $contact->phone;
@@ -40,12 +38,6 @@ class AddContact extends Component
 
 
     //Viene ricaricata ad ogni render, quindi è importante che sia efficiente
-    
-    public function companyTypes()
-    {    
-        return Contacts::where('is_active', 1)->pluck('title', 'id'); 
-    }
-
     public function add(){
 
         $validated = $this->validate(
@@ -53,30 +45,29 @@ class AddContact extends Component
                 //'owner' => 'required|min:3',
                 'name'  => 'required|min:3',
                 'email'  => 'required|email|unique:users,email',
-                'phone'  => 'required|numeric|digits:10',
-                'cell'  => 'required|numeric|digits:10',
+                'phone'  => 'nullable|required_without:cell|numeric|digits:10',
+                'cell'  => 'nullable|required_without:phone|numeric|digits:10',
 
             ],
             messages: [
                 //'owner.required' => 'Il nominativo è obbligatorio',
                 //'owner.min'      => 'Il nominativo deve avere almeno 3 caratteri',
-                'name.required'  => 'Il nome azienda è obbligatorio',
-                'name.min'       => 'Il nome azienda deve avere almeno 3 caratteri',
+                'name.required'  => 'Il nominativo è obbligatorio',
+                'name.min'       => 'Il nominativo deve avere almeno 3 caratteri',
                 'email.required' => 'Il campo E-Mail è obbligatorio', 
                 'email.email'    => 'Indirizzo E-Mail non valido',
                 'email.unique'   => 'Indirizzo E-Mail già presente',
-                'phone.required' => 'Il numero di telefono è obbligatorio', 
+                'phone.required_without' => 'Il numero di telefono è obbligatorio se il cellulare non è presente', 
                 'phone.numeric'  => 'Il telefono deve contenere solo numeri', 
                 'phone.digits'   => 'Il telefono deve essere di 10 cifre',
-                'cell.required'  => 'Il numero di cellulare è obbligatorio',  
+                'cell.required_without'  => 'Il numero di cellulare è obbligatorio se il telefono non è presente',  
                 'cell.numeric'   => 'Il cellulare deve contenere solo numeri', 
                 'cell.digits'    => 'Il cellulare deve essere di 10 cifre', 
             ],
         );
 
         $action = Contacts::create([
-            'id_user' => $this->id_user,
-            'id_parent' => Auth()->id(),
+            'id_parent' => auth()->id(),
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
@@ -90,28 +81,25 @@ class AddContact extends Component
             session()->flash('message_ko', 'Impossibile inserire l\'azienda.');
         }
 
-       return redirect()->route('company.add');
+       return redirect()->route('contacts.add');
     }
 
     //Aggiornamento dei dati, simile alla funzione add ma con regole di validazione leggermente diverse (es. email e iban unici solo se modificati)
     public function update(){
 
-   
         $validated = $this->validate(
             rules: [
                 //'owner' => 'required|min:3',
                 'name'  => 'required|min:3',
                 'email'  => ['required', 'email', Rule::unique('users', 'email')->ignore($this->id_company)],
-                'phone'  => 'required|numeric|digits:10',
-                'cell'  => 'required|numeric|digits:10',
-
-
+                'phone'  => 'nullable|required_without:cell|numeric|digits:10',
+                'cell'  => 'nullable|required_without:phone|numeric|digits:10',
             ],
             messages: [
                 //'owner.required' => 'Il nominativo è obbligatorio',
                 //'owner.min'      => 'Il nominativo deve avere almeno 3 caratteri',
-                'name.required'  => 'Il nome azienda è obbligatorio',
-                'name.min'       => 'Il nome azienda deve avere almeno 3 caratteri',
+                'name.required'  => 'Il nominativo è obbligatorio',
+                'name.min'       => 'Il nominativo deve avere almeno 3 caratteri',
                 'email.required' => 'Il campo E-Mail è obbligatorio', 
                 'email.email'    => 'Indirizzo E-Mail non valido',
                 'email.unique'   => 'Indirizzo E-Mail già presente',

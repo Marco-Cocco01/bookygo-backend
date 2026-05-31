@@ -26,8 +26,8 @@ class ContactsList extends Component
                 $this->contacts = Contacts::all()->toArray();
             break;
             case 2:
-                // utente normale vede solo le sue
-                $this->contacts = Contacts::where('id_owner', $userId)->get()->toArray();
+                // utente normale (Business) vede solo le sue
+                $this->contacts = Contacts::where('id_parent', $userId)->get()->toArray();
             break;
             default:
                 $this->contacts = [];

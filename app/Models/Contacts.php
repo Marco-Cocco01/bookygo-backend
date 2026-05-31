@@ -10,8 +10,10 @@ class Contacts extends Model
 
     protected $fillable = [
         'name',
-        'id_owner',
+        'id_parent',
         'email',
         'phone',
+        'cell',
+        'is_active'
     ];
 }

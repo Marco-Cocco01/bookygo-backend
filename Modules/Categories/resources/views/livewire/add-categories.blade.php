@@ -30,27 +30,26 @@
                 <div class="card-body">
                    <form wire:submit=@if($is_edit)"update" @else "add" @endif>
                         <div class="row mb-3">
-                            <label for="inputEmail3" class="col-sm-2 col-form-label">Nominativo</label>
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">Categoria di appartenenza</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control w-50" id="name" wire:model="name" placeholder="Mario Rossi">
+                                <select class="form-select" id="id_parent" wire:model="id_parent">
+                                    <option value="">Nessuna</option>
+                                    @foreach($parentCategories as $key => $val)
+                                        <option value="{{$val->id}}">{{$val->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="email" class="col-sm-2 col-form-label">Email</label>
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">Nome Categoria</label>
                             <div class="col-sm-10">
-                                <input type="email" class="form-control w-50" id="email" wire:model="email">
+                                <input type="text" class="form-control w-50" id="name" wire:model="name" >
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="phone" class="col-sm-2 col-form-label">Telefono</label>
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">Descrizione</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control w-50" id="phone" wire:model="phone">
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="cell" class="col-sm-2 col-form-label">Cellulare</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control w-50" id="cell" wire:model="cell">
+                                <textarea class="form-control w-50" id="description" wire:model="description" ></textarea>
                             </div>
                         </div>
                         <div class="row mb-3">   
@@ -62,7 +61,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary mt-5">@if($is_edit)Modifica @else Aggiungi @endif Contatto </button>
+                        <button type="submit" class="btn btn-primary mt-5">@if($is_edit)Modifica @else Aggiungi @endif Categoria </button>
                     </form>
                 </div class="card-footer text-left">
                      &nbsp;
