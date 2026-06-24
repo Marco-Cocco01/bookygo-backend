@@ -29,10 +29,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($categories as $category)
+                            @forelse($subcategories as $category)
                             <tr>
                                 <td>{{ $category->name }}</td>
-                                <td><a href="">{{ $category->children_count }}</a></td>
+                                <td><a href="">{{ $category->$subcount }}</a></td>
                                 <td>{{ $category->products }}</td>
                                 <td>@if($category->is_active) <i class="bi bi-check2"></i> @else <i class="bi bi-x"></i> @endif</td>
                                 <td>

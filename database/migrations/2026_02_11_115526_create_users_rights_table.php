@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('can_delete')->default(0)->comment('0: No, 1: Yes');
             $table->timestamps();
         });
+
     }
 
     /**

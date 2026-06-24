@@ -12,14 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users_rights', function (Blueprint $table) {
-            $table->bigInteger('id_parent')->unsigned()->after('id')->default(null)->comment('Riferimento a utente padre delegante, se presente');
-
+           
             $table->foreign('id_parent')
               ->references('id_user')
               ->on('type_user')
               ->onDelete('cascade'); 
         });
-
     }
 
     /**

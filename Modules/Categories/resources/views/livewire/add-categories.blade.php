@@ -32,14 +32,35 @@
                         <div class="row mb-3">
                             <label for="inputEmail3" class="col-sm-2 col-form-label">Categoria di appartenenza</label>
                             <div class="col-sm-10">
-                                <select class="form-select" id="id_parent" wire:model="id_parent">
+                                <select class="form-select" id="id_parent" wire:change="checkSubCategories($event.target.value)"> 
                                     <option value="">Nessuna</option>
                                     @foreach($parentCategories as $key => $val)
-                                        <option value="{{$val->id}}">{{$val->name}}</option>
+                                        <option value="{{$val->id}}"
+                                            @if(in_array($val->id, $this->selectedParent))
+                                                selected
+                                            @endif    
+                                        >
+                                            {{$val->name}}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
+                        @if ($children && count($children) > 0)
+                           @foreach($children as $group)
+                            <div class="row mb-3">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Sotto-categoria</label>
+                                <div class="col-sm-10">
+                                    <select class="form-select" wire:change="checkSubCategories($event.target.value)"> 
+                                        <option value="">Nessuna</option>
+                                        @foreach($group as $child)
+                                            <option value="{{$child['id']}}">{{$child['name']}}</option>  
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                             @endforeach
+                        @endif
                         <div class="row mb-3">
                             <label for="inputEmail3" class="col-sm-2 col-form-label">Nome Categoria</label>
                             <div class="col-sm-10">

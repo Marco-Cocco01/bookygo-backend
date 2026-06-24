@@ -8,7 +8,7 @@
                     aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Sei sicuro di voler eliminare questa azienda?</p>
+                <p>Sei sicuro di voler procedere all'eliminazione?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary"

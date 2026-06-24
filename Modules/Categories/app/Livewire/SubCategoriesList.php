@@ -14,6 +14,10 @@ class SubCategoriesList extends Component
     public $id_parent;
     public $is_active;
     
+    public function mount(int $id_parent)
+    {
+        $this->id_parent = $id_parent;
+    }
 
     public function confirmDelete($id)
     {
@@ -21,14 +25,14 @@ class SubCategoriesList extends Component
         $this->dispatchBrowserEvent('confirm-delete');
     }
 
-    public function render(int $id_parent = null)
+    public function render()
     {
-
+        $category = Categories::find($this->id_parent);
         return view('categories::livewire.sub-categories-list',
             [
-                'categories' => Categories::withCount('children')->where('id_parent', $id_parent)->paginate(10)
+                'subcategories' => $category->children()->paginate(10),
+                'subcount' => $category->children()->count(),
             ]
-        
         );
     }
 }

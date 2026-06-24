@@ -12,6 +12,9 @@ class AddCategory extends Component
     public $id_category;
     public $id_user;
     public $id_parent = null;
+    public $selectedParent = [];
+    public $children = [];
+    public $pathFamily = [];
     public $name;
     public $description;
     public $is_active;
@@ -42,7 +45,7 @@ class AddCategory extends Component
 
     public function add(){
 
-        $this->id_parent = $this->id_parent ?: null;
+        //$this->id_parent = $this->id_parent ?: null;
 
         $validated = $this->validate(
             rules: [
@@ -60,7 +63,7 @@ class AddCategory extends Component
         $action = Categories::create([
             'name' => $this->name,
             'description' => $this->description,
-            'id_parent' => $this->id_parent,
+            'id_parent' => end($this->pathFamily),
             'is_active' => $this->is_active,
         ]);
 
@@ -71,6 +74,25 @@ class AddCategory extends Component
         }
 
        return redirect()->route('categories.add');
+    }
+
+
+    /**Controlla che la categoria abbia figli / nipoti */
+    public function checkSubCategories($id){
+
+        // Salva la selezione per questo livello
+        array_push($this->selectedParent, $id);
+        array_push($this->pathFamily, end($this->selectedParent) );
+
+        \Log::info('Current path family: ' . implode(' > ', $this->pathFamily));
+
+        $subCategory = Categories::where('id_parent', $id)
+            ->where('is_active', 1)
+            ->get(['id', 'name']);
+        if(count($subCategory) > 0)
+        {
+            $this->children[] = $subCategory->toArray();
+        }
     }
 
     //Aggiornamento dei dati, simile alla funzione add ma con regole di validazione leggermente diverse (es. email e iban unici solo se modificati)

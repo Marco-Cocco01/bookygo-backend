@@ -31,10 +31,9 @@ class ContactsServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
+        
         Livewire::component('contacts-list', ContactsList::class);
         Livewire::component('add-contact', AddContact::class);
-
-         
     }
 
     /**

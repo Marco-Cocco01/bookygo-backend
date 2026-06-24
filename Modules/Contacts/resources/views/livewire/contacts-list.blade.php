@@ -41,7 +41,7 @@
                                 <td>{{ $val['created_at'] }}</td>
                                 <td>{{ $val['updated_at'] }}</td>
                                 <td>
-                                    <a href="{{ route('company.edit', $val['id']) }}"><i class="bi bi-pencil-square"></i></a>
+                                    <a href="{{ route('contact.edit', $val['id']) }}"><i class="bi bi-pencil-square"></i></a>
                                     <a href="#" wire:click="confirmDelete({{ $val['id'] }})" class="ms-2"><i class="bi bi-trash"></i></a>
                                 </td>
                             </tr>

@@ -18,6 +18,7 @@ class AddContact extends Component
     public $cell;
     public $is_active;
     public $is_edit = false;
+    public $id_contact;
 
     public function mount($id = null){
         $this->id_parent = auth()->id();
@@ -26,7 +27,8 @@ class AddContact extends Component
         if($id){
 
             $contact = Contacts::findOrFail($id);
-            $this->id_parent =auth()->id();
+            $this->id_contact = $id;
+            $this->id_parent = auth()->id();
             $this->name = $contact->name;
             $this->email = $contact->email;
             $this->phone = $contact->phone;
@@ -78,20 +80,26 @@ class AddContact extends Component
         if($action){
             session()->flash('message_ok', 'Inserimento avvenuto con successo.');
         } else {
-            session()->flash('message_ko', 'Impossibile inserire l\'azienda.');
+            session()->flash('message_ko', 'Impossibile inserire il contatto.');
         }
 
-       return redirect()->route('contacts.add');
+       return redirect()->route('contact.add');
     }
 
     //Aggiornamento dei dati, simile alla funzione add ma con regole di validazione leggermente diverse (es. email e iban unici solo se modificati)
     public function update(){
 
+
+        if(!$this->id_contact){
+            session()->flash('message_ko', 'Contatto non trovato.');
+            return;
+        }
+
         $validated = $this->validate(
             rules: [
                 //'owner' => 'required|min:3',
                 'name'  => 'required|min:3',
-                'email'  => ['required', 'email', Rule::unique('users', 'email')->ignore($this->id_company)],
+                'email'  => ['required', 'email', Rule::unique('users', 'email')->ignore($this->id_contact)],
                 'phone'  => 'nullable|required_without:cell|numeric|digits:10',
                 'cell'  => 'nullable|required_without:phone|numeric|digits:10',
             ],
@@ -125,8 +133,9 @@ class AddContact extends Component
         if($action){
             session()->flash('message_ok', 'Aggiornamento avvenuto con successo.');
         } else {
-            session()->flash('message_ko', 'Impossibile aggiornare l\'azienda.');
+            session()->flash('message_ko', 'Impossibile aggiornare il contatto.');
         }
+         return redirect()->route('contact.add');
     }
 
 
