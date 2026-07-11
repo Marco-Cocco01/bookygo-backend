@@ -33,6 +33,7 @@ class AddCategory extends Component
         
         //Carico i dati se è presente un id, altrimenti rimangono vuoti per l'inserimento
         if($id){
+           
             $category = Categories::findOrFail($id);
             $this->id_type = $category->id_type;
             $this->owner = $category->owner;
@@ -45,7 +46,6 @@ class AddCategory extends Component
 
     public function add(){
 
-        //$this->id_parent = $this->id_parent ?: null;
 
         $validated = $this->validate(
             rules: [

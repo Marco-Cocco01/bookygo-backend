@@ -23,7 +23,7 @@
                                 <div class="row">
                                     <p class="mb-3">&nbsp;</p>
                                 </div>
-                                    <livewire:AddCategory />
+                                    <livewire:AddCategory :id="$id ?? null"  />
                                 <div class="card-footer">
                                     &nbsp;
                                 </div>

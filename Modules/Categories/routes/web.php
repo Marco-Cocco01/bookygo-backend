@@ -13,8 +13,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('categories.add');
 
     Route::get('/sub-categories/{id_parent}', function ($id_parent) {
-        
         return view('categories::subcategories', ['id_parent' => $id_parent]);
     })->name('sub-categories.index');
-});
+
+    Route::get('edit-categories/{id}', function ($id) {
+        return view('categories::add', ['id' => $id]);
+    })->name('categories.edit');
+
+ });
 
