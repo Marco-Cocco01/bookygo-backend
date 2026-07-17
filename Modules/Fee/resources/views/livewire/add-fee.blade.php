@@ -30,49 +30,32 @@
                 <div class="card-body">
                    <form wire:submit=@if($is_edit)"update" @else "add" @endif>
                         <div class="row mb-3">
-                            <label for="inputEmail3" class="col-sm-2 col-form-label">Categoria di appartenenza</label>
-                            <div class="col-sm-10">
-                                   
-                                <select class="form-select" id="id_parent" wire:change="checkSubCategories($event.target.value)"> 
-                                    <option value="">Nessuna</option>
-                                 
-                                    @foreach($parentCategories as $key => $val)
-                                        <option value="{{$val->id}}"
-                                            @if(in_array($val->id, $this->selectedParent))
-                                                selected
-                                            @endif    
-                                        >
-                                            {{$val->name}}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        @if ($children && count($children) > 0)
-                           @foreach($children as $group)
-                            <div class="row mb-3">
-                                <label for="inputEmail3" class="col-sm-2 col-form-label">Sotto-categoria</label>
-                                <div class="col-sm-10">
-                                    <select class="form-select" wire:change="checkSubCategories($event.target.value)"> 
-                                        <option value="">Nessuna</option>
-                                        @foreach($group as $child)
-                                            <option value="{{$child['id']}}">{{$child['name']}}</option>  
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                             @endforeach
-                        @endif
-                        <div class="row mb-3">
-                            <label for="inputEmail3" class="col-sm-2 col-form-label">Nome Categoria</label>
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">Nome</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control w-50" id="name" wire:model="name" >
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="inputEmail3" class="col-sm-2 col-form-label">Descrizione</label>
+                            <label for="email" class="col-sm-2 col-form-label">Descrizione</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control w-50" id="description" wire:model="description" ></textarea>
+                                <input type="text" class="form-control w-50" id="description" wire:model="description">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="phone" class="col-sm-2 col-form-label">Tassazione in %</label>
+                            <div class="col-sm-10">
+                                <input type="number" min="1" step="0.01" class="form-control w-50" id="phone" wire:model="amount">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="cell" class="col-sm-2 col-form-label">Associata a</label>
+                            <div class="col-sm-10">
+                                <select class="form-select w-50" aria-label="Default select example" wire:model="id_client_type">
+                                    <option value="" >Seleziona</option>
+                                    @foreach($client_types as $key => $val)
+                                        <option value="{{ $key }}">{{ $val }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="row mb-3">   
@@ -84,8 +67,9 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary mt-5">@if($is_edit)Modifica @else Aggiungi @endif Categoria </button>
+                        <button type="submit" class="btn btn-primary mt-5">@if($is_edit)Modifica @else Aggiungi @endif Tassa </button>
                     </form>
+                    
                 </div class="card-footer text-left">
                      &nbsp;
                 </div>

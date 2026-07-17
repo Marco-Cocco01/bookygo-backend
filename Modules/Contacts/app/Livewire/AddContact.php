@@ -3,8 +3,11 @@ namespace Modules\Contacts\app\Livewire;
 
 use Livewire\Component;
 use Livewire\Attributes\Validate;
+use Livewire\Attributes\On;
+use App\Notifications\BusinessUserInvite;
 use App\Models\Contacts;
 use App\Models\CompanyType;
+use App\Models\User;
 use Illuminate\Validation\Rule;
 
 class AddContact extends Component
@@ -46,7 +49,7 @@ class AddContact extends Component
             rules: [
                 //'owner' => 'required|min:3',
                 'name'  => 'required|min:3',
-                'email'  => 'required|email|unique:users,email',
+                'email'  => 'required|email|unique:contacts,email|unique:users,email',
                 'phone'  => 'nullable|required_without:cell|numeric|digits:10',
                 'cell'  => 'nullable|required_without:phone|numeric|digits:10',
 
@@ -136,6 +139,29 @@ class AddContact extends Component
             session()->flash('message_ko', 'Impossibile aggiornare il contatto.');
         }
          return redirect()->route('contact.add');
+    }
+
+
+    /**
+     * Invia un invito al contatto per unirsi alla Business Unit
+     */
+    public function addToBusinessUnit(){
+        if(!$this->id_contact){
+            session()->flash('message_ko', 'Contatto non trovato.');
+            return;
+        }
+        $contact = Contacts::findOrFail($this->id_contact);
+
+        //creo il contatto come utente nel sistema
+        $user = User::create([
+            'name' => $contact->name,
+            'email' => $contact->email,
+            'password' => bcrypt(str()->random(12)), // Genera una password casuale
+        ]);
+        
+        //Invio notifica di invito al contatto
+        $user->notify(new BusinessUserInvite($user));
+        session()->flash('message_ok', 'Invito inviato con successo a ' . $user->name);
     }
 
 

@@ -30,7 +30,7 @@ class SubCategoriesList extends Component
         $category = Categories::find($this->id_parent);
         return view('categories::livewire.sub-categories-list',
             [
-                'subcategories' => $category->children()->paginate(10),
+                'subcategories' => $category->children()->paginate(6),
                 'subcount' => $category->children()->count(),
             ]
         );

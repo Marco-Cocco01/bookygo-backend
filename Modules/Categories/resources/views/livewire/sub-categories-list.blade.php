@@ -32,7 +32,7 @@
                             @forelse($subcategories as $category)
                             <tr>
                                 <td>{{ $category->name }}</td>
-                                <td><a href="">{{ $category->$subcount }}</a></td>
+                                <td><a href="">{{ $category->subcount }}</a></td>
                                 <td>{{ $category->products }}</td>
                                 <td>@if($category->is_active) <i class="bi bi-check2"></i> @else <i class="bi bi-x"></i> @endif</td>
                                 <td>
@@ -41,10 +41,17 @@
                                 </td>
                             </tr>
                             @empty
-                                <td colspan="11" class="text-center">Nessuna categoria trovata</td>
+                                <td colspan="11" class="text-center">Nessuna sottocategoria trovata</td>
                             @endforelse
                         </tbody>
                     </table>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">
+                            {{ $subcategories->links() }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

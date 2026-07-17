@@ -11,9 +11,12 @@ class ContactsList extends Component
 {
     use WithPagination;
 
-    public $contacts;
-    //Per la modal di conferma eliminazione, memorizzo l'id dell'azienda da eliminare in una variabile pubblica che viene poi utilizzata nella funzione delete
-    public $deleteId = null;
+    public $name;
+    public $description;
+    public $amount;
+    public $is_active;
+    public $id_fee;
+    public $id_type_user;
 
     public function mount()
     {

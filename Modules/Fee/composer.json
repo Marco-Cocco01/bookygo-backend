@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/fee",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Fee\\app\\": "app/",
+            "Modules\\Fee\\Database\\Factories\\": "database/factories/",
+            "Modules\\Fee\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Fee\\Tests\\": "tests/"
+        }
+    }
+}

@@ -29,6 +29,7 @@ class AddCategory extends Component
     {
 
         $this->parentCategories = Categories::whereNull('id_parent')->get();
+        //dd($this->parentCategories);
         $this->id_user = auth()->id();
         
         //Carico i dati se è presente un id, altrimenti rimangono vuoti per l'inserimento
@@ -41,6 +42,9 @@ class AddCategory extends Component
             $this->is_active = $category->is_active;
             $this->is_edit = true;
             $this->id_category = $id;
+            $this->id_parent = $category->id_parent;
+            $this->selectedParent = [$category->id_parent]; 
+            \Log::info('Editing category: ID Parent: ' . $this->id_parent . ' - Name: ' . $this->name . ' (ID: ' . $this->id_category . ')');
         }
     }
 
@@ -100,56 +104,28 @@ class AddCategory extends Component
 
         $validated = $this->validate(
             rules: [
-                'owner' => 'required|min:3',
                 'name'  => 'required|min:3|unique:categories,name',
-
+                'id_parent' => 'nullable|exists:categories,id',
             ],
             messages: [
-                'owner.required' => 'Il nominativo è obbligatorio',
-                'owner.min'      => 'Il nominativo deve avere almeno 3 caratteri',
-                'name.required'  => 'Il nome azienda è obbligatorio',
-                'name.min'       => 'Il nome azienda deve avere almeno 3 caratteri',
-                'piva.required'  => 'La partita IVA è obbligatoria',
-                'piva.max'       => 'La partita IVA non può superare 11 caratteri',
-                'cf.required'    => 'Il Codice Fiscale è obbligatorio',
-                'cf.max'         => 'Il Codice Fiscale non può superare 16 caratteri',
-                'address.required' => 'L\'indirizzo è obbligatorio',  
-                'city.required'  => 'La città è obbligatoria', 
-                'email.required' => 'Il campo E-Mail è obbligatorio', 
-                'email.email'    => 'Indirizzo E-Mail non valido',
-                'email.unique'   => 'Indirizzo E-Mail già presente',
-                'phone.required' => 'Il numero di telefono è obbligatorio', 
-                'phone.numeric'  => 'Il telefono deve contenere solo numeri', 
-                'phone.digits'   => 'Il telefono deve essere di 10 cifre',
-                'cell.required'  => 'Il numero di cellulare è obbligatorio',  
-                'cell.numeric'   => 'Il cellulare deve contenere solo numeri', 
-                'cell.digits'    => 'Il cellulare deve essere di 10 cifre',
-                'iban.required'  => 'L\'IBAN è obbligatorio',
-                'iban.unique'    => 'Questo IBAN è già presente',
-                'iban.regex'     => 'Il formato IBAN non è valido', 
+                'name.required' => 'Il nome della categoria è obbligatorio',
+                'name.min' => 'Il nome della categoria deve avere almeno 3 caratteri',
+                'name.unique' => 'Esiste già una categoria con questo nome',
+                'id_parent.exists' => 'La categoria padre selezionata non esiste',
             ],
         );
 
-        $action = Categories::findOrFail($this->id_category)->update([
-            'id_user' => $this->id_user,
-            'id_type' => $this->id_type,
-            'owner' => $this->owner,
+       $action = Categories::where('id', $this->id_category)->update([
             'name' => $this->name,
-            'piva' => $this->piva,
-            'cf' => $this->cf,
-            'address' => $this->address,
-            'city' => $this->city,
-            'email' => $this->email,
-            'phone' => $this->phone,
-            'cell' => $this->cell,
-            'iban' => $this->iban,
+            'description' => $this->description,
+            'id_parent' => $this->id_parent,
             'is_active' => $this->is_active,
         ]);
 
         if($action){
             session()->flash('message_ok', 'Aggiornamento avvenuto con successo.');
         } else {
-            session()->flash('message_ko', 'Impossibile aggiornare l\'azienda.');
+            session()->flash('message_ko', 'Impossibile aggiornare la categoria.');
         }
     }
 

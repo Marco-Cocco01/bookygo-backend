@@ -22,7 +22,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">Titolo</th>
-                                <th scope="col">N° Sottocategoria</th>    
+                                <th scope="col">N° Sottocategorie</th>    
                                 <th scope="col">Prodotti</th>
                                 <th scope="col">Attiva</th>
                                 <th>&nbsp;</th>
@@ -32,9 +32,9 @@
                             @forelse($categories as $category)
                             <tr>
                                 <td>{{ $category->name }}</td>
-                                <td><a href="{{ route('sub-categories.index', ['id_parent' => $category->id]) }}">{{ $category->children_count }}</a></td>
+                                <td><a style=" color: #76c893;" href="{{ route('sub-categories.index', ['id_parent' => $category->id]) }}">{{ $category->children_count }}</a></td>
                                 <td>{{ $category->products }}</td>
-                                <td>@if($category->is_active) <i class="bi bi-check2"></i> @else <i class="bi bi-x"></i> @endif</td>
+                                <td>@if($category->is_active) <i class="bi bi-check2" style="color: #28a745;"></i> @else <i class="bi bi-x" style="color: #dc3545;"></i> @endif</td>
                                 <td>
                                     <a href="{{ route('categories.edit', ['id' => $category->id]) }}"><i class="bi bi-pencil-square"></i></a>
                                     <a href="#" wire:click="confirmDelete({{ $category->id }})" class="ms-2"><i class="bi bi-trash"></i></a>
@@ -46,6 +46,7 @@
                         </tbody>
                     </table>
                 </div>
+
             </div>
         </div>
     </div>      <!-- End:: row-2 -->

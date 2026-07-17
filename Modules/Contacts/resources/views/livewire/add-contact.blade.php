@@ -63,7 +63,11 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary mt-5">@if($is_edit)Modifica @else Aggiungi @endif Contatto </button>
+                        @if($is_edit)
+                            <button type="button" class="btn btn-secondary mt-5" wire:loading.attr="disabled" wire:click.prevent="addToBusinessUnit">Invita in Business Unit</button>
+                         @endif
                     </form>
+                    
                 </div class="card-footer text-left">
                      &nbsp;
                 </div>
