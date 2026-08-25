@@ -17,6 +17,7 @@ class ContactsList extends Component
     public $is_active;
     public $id_fee;
     public $id_type_user;
+    public $contacts = [];
 
     public function mount()
     {

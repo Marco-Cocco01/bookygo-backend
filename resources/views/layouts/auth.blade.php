@@ -8,7 +8,12 @@
                     </a>
                 </div>
                 <div class="card custom-card">
-                    <div class="card-body p-4 pb-3">
+                    <div class="card-body p-4 pb-3 text-center">
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                         <h4 class="fw-semibold mb-4 text-center">Sign In</h4>
                         <form method="POST" action="{{ route('login.store') }}">
                             @csrf

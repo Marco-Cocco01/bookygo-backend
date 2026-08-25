@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title> noa - Bootstrap 5 Premium Admin &amp; Dashboard Template </title>
+    <title> {{ $title ?? config('app.name') }} </title>
     <meta name="Description" content="Bootstrap Responsive Admin Web Dashboard HTML5 Template">
     <meta name="Author" content="Spruko Technologies Private Limited">
 	<meta name="keywords" content="admin dashboard,admin template,admin,dashboard,bootstrap dashboard,bootstrap html template,dashboard template,bootstrap admin template,html admin template,dashboard html css,bootstrap admin,dashboard css,admin panel bootstrap,bootstrap dashboard template">

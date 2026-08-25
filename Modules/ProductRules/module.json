@@ -1,0 +1,11 @@
+{
+    "name": "ProductRules",
+    "alias": "productrules",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\ProductRules\\app\\Providers\\ProductRulesServiceProvider"
+    ],
+    "files": []
+}

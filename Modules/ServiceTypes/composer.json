@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/servicetypes",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\ServiceTypes\\app\\": "app/",
+            "Modules\\ServiceTypes\\Database\\Factories\\": "database/factories/",
+            "Modules\\ServiceTypes\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\ServiceTypes\\Tests\\": "tests/"
+        }
+    }
+}

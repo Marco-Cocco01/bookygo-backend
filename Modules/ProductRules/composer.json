@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/productrules",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\ProductRules\\app\\": "app/",
+            "Modules\\ProductRules\\Database\\Factories\\": "database/factories/",
+            "Modules\\ProductRules\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\ProductRules\\Tests\\": "tests/"
+        }
+    }
+}

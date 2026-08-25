@@ -27,9 +27,13 @@ class CompanyList extends Component
                 $this->companies = Company::all()->toArray();
             break;
             case 2:
-                // utente normale vede solo le sue
+                // Business vede solo le sue
                 $this->companies = Company::where('id_user', $userId)->get()->toArray();
             break;
+            case 4:
+                // Business Unit vede quelle del business di riferimento
+                $this->companies = Company::where('id_user', $userId)->get()->toArray();
+            break;    
             default:
                 $this->companies = [];
             break;
@@ -39,7 +43,8 @@ class CompanyList extends Component
     //Verifico se sei admin o business
     public function getUserType(int $idUser) : int
     {
-        return $userType = TypeUser::where('id_user', $idUser)->value('id_type');;
+        return $userType = TypeUser::where('id_user', $idUser)->value('id_type');
+
     }
 
 

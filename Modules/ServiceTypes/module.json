@@ -1,0 +1,11 @@
+{
+    "name": "ServiceTypes",
+    "alias": "servicetypes",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\ServiceTypes\\app\\Providers\\ServiceTypesServiceProvider"
+    ],
+    "files": []
+}

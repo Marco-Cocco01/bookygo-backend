@@ -8,7 +8,11 @@ use App\Notifications\BusinessUserInvite;
 use App\Models\Contacts;
 use App\Models\CompanyType;
 use App\Models\User;
+use App\Models\TypeUser;
+use App\Models\BusinessUnitInvitation;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class AddContact extends Component
 {
@@ -107,8 +111,7 @@ class AddContact extends Component
                 'cell'  => 'nullable|required_without:phone|numeric|digits:10',
             ],
             messages: [
-                //'owner.required' => 'Il nominativo è obbligatorio',
-                //'owner.min'      => 'Il nominativo deve avere almeno 3 caratteri',
+
                 'name.required'  => 'Il nominativo è obbligatorio',
                 'name.min'       => 'Il nominativo deve avere almeno 3 caratteri',
                 'email.required' => 'Il campo E-Mail è obbligatorio', 
@@ -145,7 +148,8 @@ class AddContact extends Component
     /**
      * Invia un invito al contatto per unirsi alla Business Unit
      */
-    public function addToBusinessUnit(){
+    public function addToBusinessUnit()
+    {
         if(!$this->id_contact){
             session()->flash('message_ko', 'Contatto non trovato.');
             return;
@@ -158,9 +162,34 @@ class AddContact extends Component
             'email' => $contact->email,
             'password' => bcrypt(str()->random(12)), // Genera una password casuale
         ]);
+
+        $lastId = $user->id;
+
+        $typeUser = TypeUser::updateOrCreate(
+            [
+                'id_user' => $lastId
+            ],
+            [
+                'id_user' => $lastId,
+                'id_type' => 2
+            ]
+        );
+
         
+        //Genero il Token per l'invito, che sarà valido per 24 ore
+        $token =  Str::random(64);
+
+        //Tabella dove vengono immagazzinati i token di invito, con la data di scadenza e lo stato di utilizzo
+        $invitation = $user->businessUnitInvitations()->create([
+            'token' => Hash::make($token),
+            'expires_at' => now()->addHours(48),
+            'invited_by' => auth()->id(),
+        ]);
+
+
+
         //Invio notifica di invito al contatto
-        $user->notify(new BusinessUserInvite($user));
+        $user->notify(new BusinessUserInvite($user, $token));
         session()->flash('message_ok', 'Invito inviato con successo a ' . $user->name);
     }
 

@@ -17,7 +17,7 @@
                     <div class="col-xl-12 col-md-12">
                         <div class="card custom-card">
                             <div class="card-header justify-content-between">
-                                <h4 class="card-title">Task List</h4>
+                                <h4 class="card-title">&nbsp;</h4>
                                 <div class="d-flex align-items-center flex-wrap gap-2">
                                     <div>
                                         <input class="form-control form-control-sm" type="text" placeholder="Search Here" aria-label=".form-control-sm example">
