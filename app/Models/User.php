@@ -26,6 +26,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'email_verified_at'
     ];
 
     /**
@@ -91,5 +92,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function rights(): HasMany
     {
         return $this->hasMany(UserRight::class, 'id_user');
+    }
+
+    // Relazione con BusinessUnitInvitation
+    public function businessUnitInvitations()
+    {
+        return $this->hasMany(BusinessUnitInvitation::class);
     }
 }

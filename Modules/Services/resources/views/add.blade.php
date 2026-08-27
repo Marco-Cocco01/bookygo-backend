@@ -17,13 +17,13 @@
                     <div class="col-xl-12 col-md-12">
                         <div class="card custom-card">
                             <div class="card-header justify-content-between">
-                                <h4 class="card-title">Gestione  Servizi</h4>
+                                <h4 class="card-title">Gestione Tipologia Servizi</h4>
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <p class="mb-3">In questa sezione è possibile i vari servizi offerti.</p>
+                                    <p class="mb-3">&nbsp;</p>
                                 </div>
-                                <livewire:services-list />
+                                    <livewire:AddService />
                                 <div class="card-footer">
                                     &nbsp;
                                 </div>

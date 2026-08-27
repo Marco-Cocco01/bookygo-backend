@@ -8,6 +8,8 @@ use Nwidart\Modules\Traits\PathNamespace;
 use Livewire\Livewire;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use Modules\Services\app\Livewire\AddService;
+use Modules\Services\app\Livewire\ServicesList;
 
 class ServicesServiceProvider extends ServiceProvider
 {
@@ -28,6 +30,9 @@ class ServicesServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
+
+        Livewire::component('add-service', AddService::class);
+        Livewire::component('services-list', ServicesList::class);
     }
 
     /**

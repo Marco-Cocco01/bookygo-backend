@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("title")->unique();
             $table->integer("id_categoy");
+            $table->integer("is_active");
             $table->timestamps();
         });
     }

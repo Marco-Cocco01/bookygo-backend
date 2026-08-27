@@ -9,8 +9,6 @@ use App\Models\Modules;
 
 class UsersRights extends Model
 {
-
-
     protected $fillable = [
         'id_user',
         'id_module',

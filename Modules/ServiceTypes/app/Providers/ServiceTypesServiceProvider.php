@@ -8,6 +8,8 @@ use Nwidart\Modules\Traits\PathNamespace;
 use Livewire\Livewire;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use Modules\ServiceTypes\app\Livewire\AddServiceType;
+use Modules\ServiceTypes\app\Livewire\ServiceTypesList;
 
 class ServiceTypesServiceProvider extends ServiceProvider
 {
@@ -28,6 +30,9 @@ class ServiceTypesServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
+        
+        Livewire::component('add-service-type', AddServiceType::class);
+        Livewire::component('service-types-list', ServiceTypesList::class);
     }
 
     /**
