@@ -20,7 +20,7 @@
                                 <h4 class="card-title">&nbsp;</h4>
                                 <div class="d-flex align-items-center flex-wrap gap-2">
                                     <div>
-                                        <input class="form-control form-control-sm" type="text" placeholder="Search Here" aria-label=".form-control-sm example">
+                                        &nbsp;
                                     </div>
                                 </div>
                             </div>
