@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('product_rules', function (Blueprint $table) {
             $table->id();
             $table->string("title")->unique();
-            $table->integer("id_categoy");
+            $table->integer("id_category");
             $table->integer("is_active");
             $table->timestamps();
         });

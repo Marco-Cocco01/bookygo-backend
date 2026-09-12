@@ -8,6 +8,8 @@ use Nwidart\Modules\Traits\PathNamespace;
 use Livewire\Livewire;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use Modules\ProductRules\app\Livewire\AddProductRules;
+use Modules\ProductRules\app\Livewire\ProductRulesList;
 
 class ProductRulesServiceProvider extends ServiceProvider
 {
@@ -28,6 +30,9 @@ class ProductRulesServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
+
+        Livewire::component('add-product-rule', AddProductRules::class);
+        Livewire::component('product-rules-list', ProductRulesList::class);
     }
 
     /**

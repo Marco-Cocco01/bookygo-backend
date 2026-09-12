@@ -8,7 +8,7 @@ use Nwidart\Modules\Traits\PathNamespace;
 use Livewire\Livewire;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
-use Modules\Rules\App\Livewire\RulesList;
+use Modules\Rules\app\Livewire\RulesList;
 
 class RulesServiceProvider extends ServiceProvider
 {

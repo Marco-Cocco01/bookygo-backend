@@ -23,9 +23,10 @@ class BusinessUserInvite extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      */
-    public function __construct(public User $user)
+    public function __construct(protected User $user, protected string $plainToken)
     {
         $this->user = $user;
+        $this->plainToken = $plainToken;
         $this->afterCommit();
     }
 
@@ -51,7 +52,7 @@ class BusinessUserInvite extends Notification implements ShouldQueue
             ->line('Sei stato invitato a unirti al nostro team.')
             ->line('Se vuoi, puoi accettare l\'invito e attivare il tuo account.')
             ->line('Clicca sul pulsante o sul link qui sotto.')
-            ->action('Attivavazione Account', url('login'))
+            ->action('Attivavazione Account', route('addbupsw', ['token' => $this->plainToken]))
             ->line('Lo staff di ' . config('app.name') . ' ti ringrazia per aver scelto il nostro servizio!');
     }
 
@@ -63,7 +64,7 @@ class BusinessUserInvite extends Notification implements ShouldQueue
     public function toArray(object $notifiable): array
     {
         return [
-            'message'      => 'L\'utente ' . $this->user->name . ' è stato invitato a unirsi alla Business Unit.',
+            'message'   => 'L\'utente ' . $this->user->name . ' è stato invitato a unirsi alla Business Unit.',
             'user_id'   => $this->user->id,
             'user_name' => $this->user->name,
             'action_url'=> route('contacts.index', $this->user->id), // Opzionale: per il link diretto

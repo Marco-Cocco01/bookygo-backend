@@ -3,5 +3,12 @@
     "Rules": true,
     "Modules": true,
     "Permissions": true,
-    "Company": true
+    "Company": true,
+    "Contacts": true,
+    "Categories": true,
+    "Fee": true,
+    "Products": true,
+    "ServiceTypes": true,
+    "Services": true,
+    "ProductRules": true
 }

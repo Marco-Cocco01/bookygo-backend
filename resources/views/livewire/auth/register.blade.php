@@ -4,7 +4,7 @@
             <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-6 col-sm-8 col-12">
                 <div class="my-4 d-flex justify-content-center">
                     <a href="index.html">
-                        <img src="../assets/images/brand-logos/desktop-dark.png" alt="logo" class="">
+                        <img src="../assets/images/brand-logos/logo.png" alt="logo" class="">
                     </a>
                 </div>
                 <div class="card custom-card">
@@ -48,14 +48,7 @@
                         </div>
                     </form>
                     <div class="card-footer">
-                        <div class="btn-list text-center">
-                            <button type="button" aria-label="button" class="btn btn-icon btn-light">
-                                <i class="ri-facebook-line fw-bold text-dark op-7 align-middle"></i>
-                            </button>
-                            <button type="button" aria-label="button" class="btn btn-icon btn-light">
-                                <i class="ri-twitter-line fw-bold text-dark op-7 align-middle"></i>
-                            </button>
-                        </div>
+                       &nbsp;
                     </div>
                 </div>
             </div>

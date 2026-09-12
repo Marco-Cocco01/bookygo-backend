@@ -16,7 +16,8 @@ use App\Models\Client;
 use App\Policies\ClientsPolicy;
 use App\Services\MenuServices;
 use Livewire\Livewire;
-
+use Laravel\Fortify\Contracts\RegisterResponse;
+use App\Http\Responses\CustomRegisterResponse;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -26,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(RegisterResponse::class, CustomRegisterResponse::class);
     }
 
     /**
@@ -67,6 +68,7 @@ class AppServiceProvider extends ServiceProvider
 
         //Add By Mac
         //Customize the email verification notification
+        /*
         VerifyEmail::toMailUsing(function ($notifiable, $url) {
             $mailMessage = new MailMessage;
             // Chiama il metodo buildMailMessage originale
@@ -77,6 +79,15 @@ class AppServiceProvider extends ServiceProvider
             $mailMessage = $method->invoke($notification, $url);
             // Modifica solo il subject
             return $mailMessage->subject(config('app.name') . ' | Verify Email Address');
+        });
+        */
+        VerifyEmail::toMailUsing(function ($notifiable, $url) {
+            return (new MailMessage)
+                ->subject(config('app.name') . ' | Verify Email Address')
+                ->greeting("Ciao {$notifiable->name}!")
+                ->line('Grazie per esserti registrato. Clicca il pulsante qui sotto per verificare il tuo indirizzo email.')
+                ->action('Verifica Email', $url)
+                ->line('Se non hai creato tu questo account, puoi ignorare questa email.');
         });
     }
 }

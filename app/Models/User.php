@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Types;
 
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -75,7 +76,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function types(): BelongsToMany
     {
         return $this->belongsToMany(
-            types::class,
+            Types::class,
             'type_user',  // tabella pivot
             'id_user',    // FK verso users
             'id_type'     // FK verso types
