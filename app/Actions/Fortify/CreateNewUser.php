@@ -48,6 +48,7 @@ class CreateNewUser implements CreatesNewUsers
 
         //Add By Mac
         //Add Rights to User
+        /*
         $modulesRules = Rules::where('id_type_user', 2)->pluck('id_module')->toArray();
         foreach ($modulesRules as $moduleId) {
             UsersRights::create([
@@ -60,6 +61,7 @@ class CreateNewUser implements CreatesNewUsers
                 'can_delete' => true,
             ]);
         }
+        */
 
         return $user;
     }

@@ -3,11 +3,8 @@
 namespace Modules\Permissions\app\Livewire;
 
 use Livewire\Component;
-use App\Models\Modules;
-use App\Models\UsersRights;
-use App\Models\UserTypes;
-use App\Models\Rules;
-use App\Models\Types;
+use App\Models\{Modules, UsersRights, UserTypes, Rules, Types, Permissions};
+
 
 
 class PermissionList extends Component
@@ -37,27 +34,27 @@ class PermissionList extends Component
         if (!$this->selectedRule) return;
 
         $modules = Types::find($this->selectedRule)->modules;
+        \Log::info('Modules for selected rule: '.$this->selectedRule, $modules->toArray());
 
-        // Prendi un utente del ruolo come riferimento per i permessi
-        $userIds = Types::find($this->selectedRule)
-            ->users
-            ->pluck('id');
+        $userTypes = $this->selectedRule;
 
-        $this->modules = $modules->map(function($module) use ($userIds) {
-            $right = UsersRights::where('id_module', $module->id)
-                ->whereIn('id_user', $userIds)
-                ->first();
+        $this->modules = $modules->map(function ($module) use ($userTypes) {
+            $right = Permissions::where('id_module', $module->id)
+                ->where('id_user_type', '=', $userTypes)
+                ->first();    
+
+            \Log::info('Right for module '.$module->id.': ', ['can_view' => $right?->can_view, 'can_add' => $right?->can_add, 'can_edit' => $right?->can_edit, 'can_delete' => $right?->can_delete]);    
 
             return [
                 'id'         => $module->id,
                 'name'       => $module->title,
-                'can_view'   => $right?->can_view ?? false,
-                'can_add'    => $right?->can_add ?? false,
-                'can_edit'   => $right?->can_edit ?? false,
-                'can_delete' => $right?->can_delete ?? false,
+                'can_view'   => $right?->can_view ?? 0,
+                'can_add'    => $right?->can_add ?? 0,
+                'can_edit'   => $right?->can_edit ?? 0,
+                'can_delete' => $right?->can_delete ?? 0,
             ];
         })->toArray();
-
+         
         \Log::info('Modules for selected rule: ', $this->modules);    
     }
 
@@ -69,15 +66,25 @@ class PermissionList extends Component
         ]);
     }
 
+    /**
+     * Update permission for a specific module
+     */
     public function updatePermission(int $moduleId, string $field, bool $value)
     {
         \Log::debug("ID_MODULO ".$moduleId. " - "." FIELD ".$field." - "."VALUE ".$value);
+        
         // Prendi tutti gli utenti del ruolo
         $userIds = Types::find($this->selectedRule)
             ->users
             ->pluck('id');
 
         \Log::debug($userIds);    
+
+        // Aggiorna la tabella dei permessi {permissions} 
+        Permissions::updateOrCreate(
+            ['id_module' => $moduleId, 'id_user_type' => $this->selectedRule],
+            [$field => $value]
+        );
 
         // Aggiorna il permesso per tutti gli utenti del ruolo
         UsersRights::where('id_module', $moduleId)

@@ -48,6 +48,22 @@ class AddCategory extends Component
         }
     }
 
+    public function getUserRights()
+    {
+        $user = auth()->user();
+        $rights = [];
+
+        if ($user) {
+            $rights = [
+                'can_create' => $user->can('create', Categories::class),
+                'can_edit' => $user->can('update', Categories::class),
+                'can_delete' => $user->can('delete', Categories::class),
+            ];
+        }
+
+        return $rights;
+    }
+
     public function add(){
 
 
@@ -131,7 +147,9 @@ class AddCategory extends Component
 
     public function render()
     {
-        return view('categories::livewire.add-categories', [
+        return view('categories::livewire.add-categories', 
+        [
+            'rights' => $this->getUserRights(),
             'parentCategories' => Categories::whereNull('id_parent')->get()
         ]);
     }

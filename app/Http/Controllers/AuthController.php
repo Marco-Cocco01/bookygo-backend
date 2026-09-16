@@ -88,8 +88,6 @@ class AuthController extends Controller
             return;
         }
 
-        
-
         foreach ($moduleIds as $moduleId) {
             UsersRights::updateOrCreate(
                 [

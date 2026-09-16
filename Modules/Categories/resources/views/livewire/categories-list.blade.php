@@ -14,7 +14,9 @@
             <div class="card custom-card">
                 <div class="card-header">
                     <div class="card-title">
-                        <a class="btn btn-primary" href="{{route('categories.add')}}">Aggiungi Nuovo</a> 
+                         @if($rights['can_create'] == 1)
+                          <a class="btn btn-primary" href="{{route('categories.add')}}">Aggiungi Nuovo</a> 
+                        @endif
                     </div>
                 </div>
                 <div class="card-body">
@@ -36,8 +38,12 @@
                                 <td>{{ $category->products }}</td>
                                 <td>@if($category->is_active) <i class="bi bi-check2" style="color: #28a745;"></i> @else <i class="bi bi-x" style="color: #dc3545;"></i> @endif</td>
                                 <td>
-                                    <a href="{{ route('categories.edit', ['id' => $category->id]) }}"><i class="bi bi-pencil-square"></i></a>
-                                    <a href="#" wire:click="confirmDelete({{ $category->id }})" class="ms-2"><i class="bi bi-trash"></i></a>
+                                    @if($rights['can_edit'] == 1)
+                                        <a href="{{ route('categories.edit', ['id' => $category->id]) }}"><i class="bi bi-pencil-square"></i></a>
+                                     @endif
+                                     @if($rights['can_delete'] == 1)
+                                        <a href="#" wire:click="confirmDelete({{ $category->id }})" class="ms-2"><i class="bi bi-trash"></i></a>
+                                    @endif
                                 </td>
                             </tr>
                             @empty

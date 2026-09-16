@@ -8,7 +8,7 @@ use App\Models\Types;
 use App\Models\UsersRights;
 use Illuminate\Auth\Access\Response;
 
-class ClientPolicy
+class CategoriesPolicy
 {
 
     /**
@@ -17,10 +17,12 @@ class ClientPolicy
      */
     public function before(User $user, string $ability): bool|null
     {
+         \Log::info('Before: ' . ($user->hasType('admin') ? 'true' : 'false'));
         // L'admin ha sempre accesso a tutto
         if ($user->hasType('admin')) {
             return true;
         }
+       
         return null; // null = continua con il metodo specifico
     }
 
@@ -35,7 +37,7 @@ class ClientPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Client $client): bool
+    public function view(User $user, Categories $category): bool
     {
         return $this->hasRight($user, 'can_view');
     }
@@ -51,7 +53,7 @@ class ClientPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Client $client): bool
+    public function update(User $user, ?Categories $category = null): bool
     {
         return $this->hasRight($user, 'can_edit');
     }
@@ -59,18 +61,18 @@ class ClientPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Client $client): bool
+    public function delete(User $user, ?Categories $category = null): bool
     {
         return $this->hasRight($user, 'can_delete');
     }
 
     // restore e forceDelete — solo admin (before() ci pensa)
-    public function restore(User $user, Client $client): bool
+    public function restore(User $user, Categories $category): bool
     {
         return false;
     }
 
-    public function forceDelete(User $user, Client $client): bool
+    public function forceDelete(User $user, Categories $category): bool
     {
         return false;
     }
@@ -78,14 +80,15 @@ class ClientPolicy
 
     // -------------------------------------------------------
     // Metodo privato centrale
-    // Legge users_rights per il modulo 'clients'
+    // Legge users_rights per il modulo 'categories'
     // Funziona sia per permessi diretti che per deleghe (id_parent)
     // -------------------------------------------------------
     private function hasRight(User $user, string $action): bool
     {
+
         return $user->rights()
             ->whereHas('module', fn($q) =>
-                $q->where('title', 'clients')  // ← nome del modulo in tabella modules
+                $q->where('title', 'categories')  // ← nome del modulo in tabella modules
                   ->where('is_active', true)   // ← solo moduli attivi
             )
             ->where($action, true)

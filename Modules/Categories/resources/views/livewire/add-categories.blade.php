@@ -28,6 +28,8 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    @if($rights['can_create'] == 1 || $rights['can_edit'] == 1)
+                        <h5 class="card-title">@if($is_edit) Modifica Categoria @else Aggiungi Categoria @endif</h5>
                    <form wire:submit=@if($is_edit)"update" @else "add" @endif>
                         <div class="row mb-3">
                             <label for="inputEmail3" class="col-sm-2 col-form-label">Categoria di appartenenza</label>
@@ -86,6 +88,11 @@
                         </div>
                         <button type="submit" class="btn btn-primary mt-5">@if($is_edit)Modifica @else Aggiungi @endif Categoria </button>
                     </form>
+                    @else
+                        <div class="alert alert-warning" role="alert">
+                            Non hai i permessi per aggiungere o modificare una categoria.
+                        </div>
+                    @endif
                 </div class="card-footer text-left">
                      &nbsp;
                 </div>

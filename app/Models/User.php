@@ -11,6 +11,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Types;
+use App\Models\UsersRights;
 
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -92,7 +93,7 @@ class User extends Authenticatable implements MustVerifyEmail
     // Diritti dell'utente in users_rights
     public function rights(): HasMany
     {
-        return $this->hasMany(UserRight::class, 'id_user');
+        return $this->hasMany(UsersRights::class, 'id_user');
     }
 
     // Relazione con BusinessUnitInvitation
