@@ -53,7 +53,7 @@ class AssignDefaultRightsToUser
                 foreach ($modules as $module) {
                     UsersRights::create([
                         'id_user'    => $user->id,
-                        'id_parent'  => null,
+                        'id_parent'  => $user->id,
                         'id_module'  => $module->id,
                         'can_view'   => false,
                         'can_add'    => false,
